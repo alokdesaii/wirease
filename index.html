@@ -1,0 +1,679 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wirease — Send Money from Hong Kong to 100+ Countries</title>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<meta name="description" content="Faster, easier and cheaper cross-border payments from Hong Kong to 100+ countries. Remittances, business payments, wholesale banknotes and a white-label IMTS platform. Regulated by the C&ED.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --blue:#0d61a6; --teal:#14bdb7; --ink:#21262b; --mist:#d2d6dc; --paper:#f9fafb;
+  --mint:#c9efed; --soft:#5d656d; --line:#21262b;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+  --ease:cubic-bezier(.2,.8,.2,1);
+  --g:clamp(20px,2.6vw,44px); --hh:56px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-font-smoothing:antialiased;scroll-padding-top:var(--hh)}
+body{font-family:Archivo,Helvetica,sans-serif;background:var(--paper);color:var(--ink);overflow-x:hidden;font-size:16px;line-height:1.45}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+svg{display:block}
+.mono{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;line-height:1.5}
+.sq{display:inline-flex;align-items:center;gap:8px}
+.sq::before{content:"";width:7px;height:7px;background:currentColor}
+.dsp{font-weight:500;letter-spacing:-.045em;line-height:.88}
+.up{text-transform:uppercase}
+.btn{display:inline-flex;align-items:center;justify-content:space-between;gap:24px;height:48px;padding:0 18px;font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;border:1px solid currentColor;transition:background .25s,color .25s,border-color .25s}
+.btn .ar{transition:transform .35s var(--ease)}
+.btn:hover .ar{transform:translateX(4px)}
+.btn.teal{background:var(--teal);border-color:var(--teal);color:var(--ink)}
+.btn.teal:hover{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.btn.ink{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.btn.ink:hover{background:var(--blue);border-color:var(--blue)}
+.btn.line:hover{background:var(--ink);color:var(--paper)}
+.btn.lineW:hover{background:var(--paper);color:var(--ink)}
+
+/* ---------- header ---------- */
+.hdr{position:sticky;top:0;z-index:50;height:var(--hh);display:grid;grid-template-columns:auto 1fr auto auto;align-items:stretch;background:var(--paper);border-bottom:1px solid var(--line)}
+.hdr .logo{display:flex;align-items:center;padding:0 var(--g);border-right:1px solid var(--line)}
+.hdr .logo img{height:24px}
+.hdr .time{display:flex;align-items:center;padding:0 var(--g)}
+.hdr nav{display:flex;align-items:center;gap:clamp(16px,2.2vw,36px);padding:0 var(--g);font-size:14px}
+.hdr nav a{position:relative}
+.hdr nav a::after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:1px;background:currentColor;transform:scaleX(0);transform-origin:right;transition:transform .35s var(--ease)}
+.hdr nav a:hover::after{transform:scaleX(1);transform-origin:left}
+.hdr .cta{display:flex;align-items:center;gap:28px;padding:0 var(--g);background:var(--ink);color:var(--paper);font-size:14px;transition:background .25s}
+.hdr .cta:hover{background:var(--blue)}
+@media (max-width:960px){.hdr nav{display:none}.hdr{grid-template-columns:auto 1fr auto}}
+
+/* ---------- hero ---------- */
+.hero{display:grid;grid-template-columns:1fr 1fr;min-height:calc(100svh - var(--hh));border-bottom:1px solid var(--line)}
+.h-left{display:flex;flex-direction:column;border-right:1px solid var(--line);min-width:0}
+.h-word{flex:1;display:flex;flex-direction:column;justify-content:space-between;padding:var(--g)}
+.h-word .kick{color:var(--soft)}
+.h-sub{display:flex;flex-direction:column;gap:clamp(28px,4vh,44px);margin:auto 0;max-width:640px}
+.h-sub h1{font-size:clamp(40px,4.4vw,76px);line-height:1;letter-spacing:-.04em}
+.h-sub h1 em{font-style:normal;color:var(--soft)}
+.h-acts{display:flex;align-items:center;gap:28px;flex-wrap:wrap}
+.h-acts .btn{min-width:220px}
+.tlink{font-size:15px;border-bottom:1px solid currentColor;padding-bottom:2px;transition:color .25s}
+.tlink:hover{color:var(--blue)}
+.trustline{color:var(--soft)}
+.h-cards{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);border-top:1px solid var(--line)}
+.card{padding:var(--g);display:flex;flex-direction:column;gap:18px;min-height:260px;min-width:0}
+.card.dark{background:var(--ink);color:var(--paper)}
+.card.teal{background:var(--teal)}
+.card p{font-size:clamp(17px,1.35vw,21px);line-height:1.3;letter-spacing:-.01em}
+.card .btn{margin-top:auto}
+.flags{display:flex;gap:6px;margin-top:auto;overflow:hidden;-webkit-mask:linear-gradient(90deg,#000 80%,transparent);mask:linear-gradient(90deg,#000 80%,transparent)}
+.flags .trk{display:flex;gap:6px;animation:flg 30s linear infinite}
+.flags img{width:34px;height:23px;object-fit:cover;border:1px solid rgba(33,38,43,.35)}
+@keyframes flg{to{transform:translateX(-50%)}}
+.h-right{display:grid;grid-template-rows:1fr auto;min-width:0}
+.globe-wrap{position:relative;overflow:hidden;background:var(--paper)}
+#globe{position:absolute;inset:0;width:100%;height:100%;cursor:grab;touch-action:pan-y}
+#globe:active{cursor:grabbing}
+.globe-cap{position:absolute;left:var(--g);right:var(--g);top:var(--g);display:flex;justify-content:space-between;pointer-events:none}
+.globe-cap b{color:var(--blue);font-weight:500}
+/* calculator */
+.calc{border-top:1px solid var(--line);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);background:var(--paper)}
+.calc .f:nth-child(2){border-right:0}
+.calc .f{padding:16px var(--g);border-right:1px solid var(--line);display:flex;flex-direction:column;gap:6px;min-width:0}
+.calc .f .row{display:flex;justify-content:space-between;align-items:center;gap:8px;color:var(--soft)}
+.calc input,.calc output{font:500 clamp(30px,2.6vw,44px)/1.05 Archivo,sans-serif;letter-spacing:-.04em;background:none;border:0;color:var(--ink);width:100%;font-variant-numeric:tabular-nums;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.calc input:focus{outline:none;box-shadow:0 2px 0 var(--teal)}
+.calc select{appearance:none;font-family:var(--mono);font-size:11px;text-transform:uppercase;border:1px solid var(--line);background:var(--paper);color:var(--ink);padding:5px 26px 5px 8px;cursor:pointer;background-image:linear-gradient(45deg,transparent 50%,#21262b 50%),linear-gradient(-45deg,transparent 50%,#21262b 50%);background-position:calc(100% - 13px) 52%,calc(100% - 8px) 52%;background-size:5px 5px;background-repeat:no-repeat}
+.calc .go{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:16px var(--g);background:var(--ink);color:var(--paper);transition:background .25s}
+.calc .go:hover{background:var(--blue)}
+.calc .go b{font-weight:500;font-size:20px;display:flex;gap:16px}
+.calc .go>span:first-child{display:flex;align-items:center;color:#c4cad0}
+.calc-meta{grid-column:1/-1;display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px 24px;padding:10px var(--g);border-top:1px solid var(--line);color:var(--soft)}
+.calc-meta b{color:var(--ink);font-weight:500}
+.live{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--teal);margin-right:6px;animation:pulse 1.6s infinite}
+@keyframes pulse{50%{opacity:.3}}
+@media (max-width:1100px){.hero{grid-template-columns:1fr}.h-left{border-right:0}.globe-wrap{min-height:70vw}}
+@media (max-width:640px){.hdr .time{display:none}.hdr .cta{gap:12px;white-space:nowrap}.h-sub h1{font-size:9.5vw}.card{min-height:0}.card .btn,.flags{margin-top:12px}.h-cards{grid-template-columns:1fr}.calc{grid-template-columns:1fr}.calc .f{border-right:0;border-bottom:1px solid var(--line)}}
+
+/* ---------- statement (fine-line skyline) ---------- */
+.state{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--line);background:var(--ink);color:var(--paper)}
+.state .ht{position:relative;min-height:clamp(420px,46vw,720px);background:var(--paper);overflow:hidden}
+.state .ht{background:#fbfcfd}
+#skyline svg{position:absolute;inset:0;width:100%;height:100%}
+#skyline .ln{fill:#fff;stroke:#8fa0bf;stroke-width:.9;stroke-linejoin:round}
+#skyline .ln.top{fill:#fdfdff}
+#skyline .win{fill:none;stroke:#aab6cf;stroke-width:.7}
+#skyline .win.lit{fill:#d6f2f0;stroke:#14bdb7}
+#skyline .walk{fill:#f4f6fa;stroke:#c3cbdc;stroke-width:.8}
+#skyline .dash{stroke:#b8c2d6;stroke-width:.9;stroke-dasharray:5 6;fill:none}
+#skyline .wave{stroke:#9fd9d6;stroke-width:1;stroke-linecap:round}
+#skyline .water{fill:#f2fbfa;stroke:none}
+#skyline .tree{fill:#fff;stroke:#8fa0bf;stroke-width:.9}
+#skyline .cloud{fill:#fff;stroke:#8fa0bf;stroke-width:1;opacity:.95}
+#skyline .route{fill:none;stroke:#0d61a6;stroke-width:2;stroke-dasharray:6 5;stroke-linecap:round}
+#skyline .pin circle{stroke:#fff;stroke-width:2}
+#skyline .ck{font:500 8.5px "IBM Plex Mono",monospace;letter-spacing:.06em;fill:#6b737b}
+#skyline .cv{font:600 14px Archivo,sans-serif;letter-spacing:-.01em;fill:#21262b}
+#skyline .cv.ok{fill:#0f9e98}
+#skyline .cs{font:400 10px Archivo,sans-serif;fill:#5f656b}
+.state .big{display:flex;flex-direction:column;justify-content:space-between;padding:var(--g)}
+.state .big{justify-content:flex-start;gap:clamp(28px,4vh,44px)}
+.state h2{font-size:clamp(40px,4.2vw,72px);line-height:1}
+.why{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid rgba(249,250,251,.16);border-left:1px solid rgba(249,250,251,.16)}
+.why>div{padding:22px 22px 26px;border-right:1px solid rgba(249,250,251,.16);border-bottom:1px solid rgba(249,250,251,.16);display:flex;flex-direction:column;gap:10px;min-height:160px;transition:background .3s}
+.why>div:hover{background:rgba(249,250,251,.04)}
+.why .mono{color:var(--teal)}
+.why h3{font-size:clamp(22px,1.8vw,28px);font-weight:500;letter-spacing:-.02em;margin-top:auto}
+.why p{color:#aeb5bc;font-size:15px;line-height:1.45}
+.why-cta{display:flex;align-items:center;gap:22px;flex-wrap:wrap;color:#8b939a}
+.state h2 span{display:block;overflow:hidden}
+.state h2 span>i{display:inline-block;font-style:normal}
+.state .sub{display:flex;justify-content:space-between;gap:16px;color:#aab1b8}
+@media (max-width:900px){.state{grid-template-columns:1fr}.state .ht{min-height:60vw}}
+
+/* ---------- about ---------- */
+.about{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--line)}
+.about aside{padding:clamp(48px,6vw,96px) var(--g);border-right:1px solid var(--line)}
+.about aside .stick{position:sticky;top:calc(var(--hh) + var(--g));display:flex;flex-direction:column;gap:22px}
+.about .copy{padding:clamp(48px,6vw,96px) var(--g);font-size:clamp(22px,2.05vw,34px);line-height:1.22;letter-spacing:-.02em;display:flex;flex-direction:column;gap:1em}
+.about .copy .w{opacity:.18}
+@media (max-width:900px){.about{grid-template-columns:1fr}.about aside{border-right:0;border-bottom:1px solid var(--line)}}
+
+/* ---------- stats ---------- */
+.stats{display:grid;grid-template-columns:repeat(3,1fr);align-items:end;border-bottom:1px solid var(--line);min-height:clamp(480px,48vw,760px)}
+.stat{display:flex;flex-direction:column;justify-content:space-between;padding:var(--g);border-right:1px solid var(--line)}
+.stat:last-child{border-right:0}
+.stat:nth-child(1){background:var(--teal);height:100%}
+.stat:nth-child(2){background:var(--ink);color:var(--paper);height:72%}
+.stat:nth-child(3){background:var(--mist);height:50%}
+.stat b{font-size:clamp(72px,8.8vw,170px);display:flex;align-items:flex-start;height:1em;overflow:hidden;line-height:1}
+.stat b .col{display:flex;flex-direction:column}
+.stat p{max-width:280px}
+@media (max-width:800px){.stats{grid-template-columns:1fr;min-height:0}.stat{height:auto!important;min-height:220px;border-right:0}}
+
+/* ---------- solutions ---------- */
+.sol{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--line)}
+.sol aside{background:var(--mist);border-right:1px solid var(--line)}
+.sol aside .stick{position:sticky;top:var(--hh);min-height:calc(100svh - var(--hh));display:flex;flex-direction:column;justify-content:space-between;padding:var(--g);gap:28px}
+.sol aside h2{font-size:clamp(56px,7vw,136px)}
+.sol aside p{max-width:440px}
+.sol .list{background:var(--ink);color:var(--paper)}
+.item{display:grid;grid-template-columns:1fr 1.15fr;gap:var(--g);padding:clamp(40px,5vw,72px) var(--g);border-bottom:1px solid rgba(249,250,251,.16)}
+.item:last-child{border-bottom:0}
+.item .num{color:var(--teal)}
+.item h3{font-size:clamp(34px,3.2vw,56px);margin-top:12px}
+.item .ico{width:clamp(110px,10vw,150px);aspect-ratio:1;margin-top:28px}
+.item .ico ellipse,.item .ico circle,.item .ico path{fill:none;stroke:var(--paper);stroke-width:.8}
+.item p{color:#c4cad0;font-size:17px}
+.item ul{list-style:none;margin:22px 0 26px;display:flex;flex-direction:column;gap:6px}
+.item li{display:flex;gap:10px;align-items:center}
+.item li::before{content:"";width:7px;height:7px;background:var(--teal);flex:none}
+@media (max-width:900px){.sol,.item{grid-template-columns:1fr}.sol aside .stick{position:static;min-height:0}.sol aside h2{text-align:left}}
+
+/* ---------- steps ---------- */
+.steps{display:grid;grid-template-columns:1fr 2fr;border-bottom:1px solid var(--line)}
+.steps aside{padding:var(--g);border-right:1px solid var(--line);display:flex;flex-direction:column;gap:22px}
+.steps h2{font-size:clamp(48px,5.4vw,104px)}
+.steps ol{list-style:none;display:grid;grid-template-columns:repeat(3,1fr)}
+.steps li{padding:var(--g);border-right:1px solid var(--line);display:flex;flex-direction:column;gap:18px;min-height:340px;transition:background .3s}
+.steps li:last-child{border-right:0}
+.steps li:hover{background:var(--mint)}
+.steps li b{font-size:clamp(64px,6vw,112px);margin-top:auto}
+.steps li h3{font-size:24px;font-weight:500;letter-spacing:-.02em}
+.steps li p{color:var(--soft)}
+@media (max-width:900px){.steps,.steps ol{grid-template-columns:1fr}.steps aside,.steps li{border-right:0;border-bottom:1px solid var(--line)}}
+
+/* ---------- corridors ---------- */
+.cor-head{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--line)}
+.cor-head h2{font-size:clamp(84px,12vw,240px);padding:var(--g);border-right:1px solid var(--line)}
+.cor-head .side{padding:var(--g);display:flex;flex-direction:column;justify-content:flex-end;gap:20px}
+.cor-head .side label{display:flex;align-items:baseline;gap:12px;font-size:clamp(26px,2.4vw,40px);letter-spacing:-.03em}
+.cor-head .side input{font:inherit;letter-spacing:inherit;width:6ch;border:0;border-bottom:2px solid var(--ink);background:none;color:inherit}
+.cor-head .side input:focus{outline:none;border-color:var(--teal)}
+.rows a{display:grid;grid-template-columns:60px 1.4fr .7fr 1fr 1.4fr 80px;align-items:center;gap:12px;padding:20px var(--g);border-bottom:1px solid var(--line);font-size:clamp(20px,1.8vw,30px);letter-spacing:-.02em;transition:background .25s,color .25s}
+.rows a:hover{background:var(--ink);color:var(--paper)}
+.rows img{width:36px;height:24px;object-fit:cover;border:1px solid rgba(33,38,43,.3)}
+.rows .k{font-family:var(--mono);font-size:12px;text-transform:uppercase;color:var(--soft)}
+.rows a:hover .k{color:#aab1b8}
+.rows .rv{text-align:right;font-variant-numeric:tabular-nums}
+.rows .send{justify-self:end;font-family:var(--mono);font-size:11px;text-transform:uppercase;opacity:0;transform:translateX(-8px);transition:opacity .25s,transform .35s var(--ease);color:var(--teal)}
+.rows a:hover .send{opacity:1;transform:none}
+.rows:not(.all) a:nth-child(n+9){display:none}
+.more{width:100%;display:flex;justify-content:space-between;padding:20px var(--g);border-bottom:1px solid var(--line);transition:background .25s}
+.more:hover{background:var(--mint)}
+@media (max-width:800px){.cor-head{grid-template-columns:1fr}.cor-head h2{border-right:0}.rows a{grid-template-columns:44px 1fr 1fr}.rows .hide{display:none}}
+
+/* ---------- trust ---------- */
+.trust{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--line)}
+.trust .head{background:var(--ink);color:var(--paper);padding:var(--g);display:flex;flex-direction:column;justify-content:space-between;gap:40px;min-height:560px}
+.trust .head h2{font-size:clamp(56px,6.6vw,128px)}
+.trust .head p{max-width:440px;color:#c4cad0}
+.trust .grid{display:grid;grid-template-columns:1fr 1fr}
+.trust .t{padding:var(--g);border-left:1px solid var(--line);border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:10px;transition:background .3s}
+.trust .t:hover{background:var(--mint)}
+.trust .t:nth-last-child(-n+2){border-bottom:0}
+.trust .t h3{font-size:22px;font-weight:500;letter-spacing:-.02em;margin-top:clamp(28px,4vw,56px)}
+.trust .t p{color:var(--soft);font-size:15px}
+@media (max-width:900px){.trust,.trust .grid{grid-template-columns:1fr}}
+
+/* ---------- faq ---------- */
+.faq{display:grid;grid-template-columns:1fr 2fr;border-bottom:1px solid var(--line)}
+.faq aside{padding:var(--g);border-right:1px solid var(--line);display:flex;flex-direction:column;gap:22px}
+.faq h2{font-size:clamp(48px,5.4vw,104px)}
+.faq details{border-bottom:1px solid var(--line)}
+.faq details:last-child{border-bottom:0}
+.faq summary{list-style:none;display:flex;justify-content:space-between;gap:20px;align-items:center;padding:24px var(--g);font-size:clamp(20px,1.7vw,28px);letter-spacing:-.02em;cursor:pointer;transition:background .25s}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary:hover{background:var(--mint)}
+.faq summary i{font-style:normal;font-family:var(--mono);font-size:20px;transition:transform .35s var(--ease)}
+.faq details[open] summary i{transform:rotate(45deg)}
+.faq details p{padding:0 var(--g) 26px;max-width:720px;color:var(--soft);font-size:17px}
+@media (max-width:900px){.faq{grid-template-columns:1fr}.faq aside{border-right:0;border-bottom:1px solid var(--line)}}
+
+/* ---------- final cta + footer ---------- */
+.final{display:grid;grid-template-columns:1fr 1fr}
+.final>div{padding:var(--g);min-height:420px;display:flex;flex-direction:column;justify-content:space-between;gap:28px}
+.final .a{background:var(--teal)}
+.final .b{background:var(--ink);color:var(--paper)}
+.final h2{font-size:clamp(48px,5.6vw,108px)}
+.final .acts{display:flex;flex-wrap:wrap;gap:10px}
+@media (max-width:800px){.final{grid-template-columns:1fr}}
+footer{background:var(--ink);color:var(--paper);border-top:1px solid rgba(249,250,251,.16)}
+.f-grid{display:grid;grid-template-columns:3fr 1fr 1fr 1fr;border-bottom:1px solid rgba(249,250,251,.16)}
+.f-grid>div{padding:var(--g);border-right:1px solid rgba(249,250,251,.16);display:flex;flex-direction:column;gap:12px;color:#c4cad0;font-size:15px}
+.f-grid>div:last-child{border-right:0}
+.f-grid h4{color:var(--teal);font-weight:400}
+.f-grid a:hover{color:var(--paper)}
+.f-word{padding:clamp(40px,5vw,80px) var(--g) var(--g)}
+.f-word img{width:100%;display:block}
+.legal{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;padding:16px var(--g);border-top:1px solid rgba(249,250,251,.16);color:#8b939a}
+@media (max-width:800px){.f-grid{grid-template-columns:1fr 1fr}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <a class="logo" href="#top" aria-label="Wirease home"><img src="assets/wirease-logo-horizontal.svg" alt="Wirease"></a>
+  <span class="time mono" id="clock">--:-- HKT</span>
+  <nav aria-label="Primary"><a href="#send">Send money</a><a href="#solutions">Business</a><a href="#solutions">Banknotes</a><a href="#solutions">Partners</a><a href="#rates">Rates</a><a href="#faq">FAQ</a></nav>
+  <a class="cta" href="#send"><span>Send money</span><span>→</span></a>
+</header>
+
+<main id="top">
+  <!-- HERO -->
+  <section class="hero">
+    <div class="h-left">
+      <div class="h-word">
+        <span class="kick mono sq">Cross-border payments from Hong Kong</span>
+        <div class="h-sub">
+          <h1 class="dsp">Send money to 100+ countries — faster, easier and cheaper. <em>Every fee shown before you pay.</em></h1>
+          <div class="h-acts"><a class="btn ink" href="#send"><span>Send money</span><span class="ar">→</span></a><a class="tlink" href="#solutions">For business &amp; partners →</a></div>
+          <span class="mono trustline">Regulated by the C&amp;ED · Funds safeguarded with leading banks</span>
+        </div>
+      </div>
+    </div>
+    <div class="h-right" id="send">
+      <div class="globe-wrap">
+        <canvas id="globe" aria-label="Rotating globe showing payment routes from Hong Kong. Drag to spin."></canvas>
+        <div class="globe-cap mono"><span class="sq" id="g-sel">HKG → Philippines</span></div>
+      </div>
+      <form class="calc" onsubmit="return false" aria-label="Remittance calculator">
+        <div class="f"><div class="row mono"><label for="amt">You send</label><span>HKD</span></div><input id="amt" inputmode="decimal" value="10,000" autocomplete="off"></div>
+        <div class="f"><div class="row mono"><label for="to">They receive</label><select id="to" aria-label="Destination currency"></select></div><output id="out" for="amt to">—</output></div>
+        <a class="go" href="#start" id="go"><span><i class="live"></i><span class="mono" id="rate">—</span></span><b><span>Start transfer</span><span>→</span></b></a>
+        <div class="calc-meta mono"><span>No hidden fees — your exact fee is shown before you pay</span><span id="stamp">Loading live rates…</span></div>
+      </form>
+    </div>
+  </section>
+
+  <!-- STATEMENT -->
+  <section class="state">
+    <div class="big">
+      <span class="mono sq" style="color:var(--teal)">Why send with Wirease</span>
+      <h2 class="dsp"><span><i>The way money</i></span><span><i>should move.</i></span></h2>
+      <div class="why">
+        <div><span class="mono">01</span><h3>Fast</h3><p>Instant and swift transfers to 100+ countries.</p></div>
+        <div><span class="mono">02</span><h3>Cost effective</h3><p>Competitive rates and the lowest charges.</p></div>
+        <div><span class="mono">03</span><h3>Safe</h3><p>Secure, compliant and regulated by the C&amp;ED.</p></div>
+        <div><span class="mono">04</span><h3>Transparent</h3><p>No hidden fees — you always know what you pay.</p></div>
+      </div>
+      <div class="why-cta"><a class="btn teal" href="#send"><span>Compare today's rate</span><span class="ar">→</span></a><span class="mono">Live rates · fees shown upfront</span></div>
+    </div>
+    <div class="ht" id="skyline" role="img" aria-label="Line illustration of the Hong Kong skyline"></div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about">
+    <aside><div class="stick">
+      <span class="mono sq">About Wirease</span>
+      <span class="mono" style="color:var(--soft)">Wirease Limited · Hong Kong<br>Holding company of Wirease subsidiaries globally</span>
+      <a class="btn line" href="#solutions" style="align-self:flex-start"><span>What we do</span><span class="ar">→</span></a>
+    </div></aside>
+    <div class="copy words">
+      <p>Wirease was built on a simple observation: people sending money across borders deserve to know exactly what they pay, and exactly when it arrives.</p>
+      <p>Fast, secure and cost-effective — but that's not all. We know you like to be in control, so every rate and every fee is shown upfront. From a family transfer home to a large business payment, from 50+ currencies of wholesale banknotes to remittance brands running on our platform, it all moves on the same regulated, safeguarded rails.</p>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section class="stats" aria-label="Wirease in numbers">
+    <div class="stat"><span class="mono sq">Customers</span><div><b class="dsp" data-v="20K+"></b><p>Customers who trust Wirease to move their money.</p></div></div>
+    <div class="stat"><span class="mono sq">Corridors</span><div><b class="dsp" data-v="100+"></b><p>Countries you can send to from Hong Kong.</p></div></div>
+    <div class="stat"><span class="mono sq">Currencies</span><div><b class="dsp" data-v="50+"></b><p>Currencies bought and sold as wholesale banknotes.</p></div></div>
+  </section>
+
+  <!-- SOLUTIONS -->
+  <section class="sol" id="solutions">
+    <aside><div class="stick">
+      <h2 class="dsp up">Moving money for everyone</h2>
+      <div>
+        <p>Whether you're sending to family, paying suppliers, sourcing currency or running your own remittance brand — Wirease has a solution built for how you move money.</p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:24px"><a class="btn ink" href="mailto:business@wirease.com"><span>Talk to our team</span><span class="ar">→</span></a><a class="btn line" href="#rates"><span>See live rates</span><span class="ar">→</span></a></div>
+      </div>
+    </div></aside>
+    <div class="list">
+      <article class="item">
+        <div><span class="mono num">01</span><h3 class="dsp">Home<br>remittance</h3><svg class="ico" viewBox="0 0 100 100" data-globe></svg></div>
+        <div><p>Send to family in 100+ countries at competitive rates with the lowest charges. Enter your recipient's details, pay by bank transfer — that's it.</p>
+          <ul class="mono"><li>100+ destination countries</li><li>Fees shown before you pay</li><li>Instant &amp; swift transfers</li><li>Pay by bank transfer</li></ul>
+          <a class="btn teal" href="#send"><span>Check today's rate</span><span class="ar">→</span></a></div>
+      </article>
+      <article class="item">
+        <div><span class="mono num">02</span><h3 class="dsp">Business<br>payments</h3><svg class="ico" viewBox="0 0 100 100" data-globe></svg></div>
+        <div><p>Business payments locally and internationally at great rates — for both small and large value transfers. Open a multi-currency business account with us.</p>
+          <ul class="mono"><li>Competitive FX on all currencies</li><li>Small &amp; large value</li><li>Multi-currency accounts</li><li>Dedicated support</li></ul>
+          <a class="btn lineW" href="mailto:business@wirease.com?subject=Business%20payments"><span>Request a business rate</span><span class="ar">→</span></a></div>
+      </article>
+      <article class="item">
+        <div><span class="mono num">03</span><h3 class="dsp">Wholesale<br>banknotes</h3><svg class="ico" viewBox="0 0 100 100" data-globe></svg></div>
+        <div><p>An established name in liquidity and FX services for a diverse client base. We buy and sell 50+ currencies from and to our global clients.</p>
+          <ul class="mono"><li>50+ currencies</li><li>Buy &amp; sell</li><li>Global client base</li><li>Liquidity &amp; FX services</li></ul>
+          <a class="btn lineW" href="mailto:support@wirease.com?subject=Banknote%20quote"><span>Get a banknote quote</span><span class="ar">→</span></a></div>
+      </article>
+      <article class="item">
+        <div><span class="mono num">04</span><h3 class="dsp">Partner<br>platform</h3><svg class="ico" viewBox="0 0 100 100" data-globe></svg></div>
+        <div><p>Expand your business on the Wirease IMTS platform. Offer remittance on a state-of-the-art money transfer platform, under your own brand.</p>
+          <ul class="mono"><li>More agents under your brand</li><li>Cross-sell your products</li><li>International compliance built in</li><li>State-of-the-art platform</li></ul>
+          <a class="btn lineW" href="mailto:business@wirease.com?subject=Partner%20with%20Wirease"><span>Become a partner</span><span class="ar">→</span></a></div>
+      </article>
+    </div>
+  </section>
+
+  <!-- STEPS -->
+  <section class="steps">
+    <aside><span class="mono sq">How it works</span><h2 class="dsp up">Three steps.<br>That's it.</h2><a class="btn ink" href="#send" style="align-self:flex-start"><span>Start now</span><span class="ar">→</span></a></aside>
+    <ol>
+      <li><span class="mono">Step 01 · Coming soon</span><h3>Create an account</h3><p>Create your free account and get verified in minutes.</p><b class="dsp">01</b></li>
+      <li><span class="mono">Step 02</span><h3>Set up a transfer</h3><p>Enter your recipient's details and the amount to transfer.</p><b class="dsp">02</b></li>
+      <li><span class="mono">Step 03</span><h3>Pay securely</h3><p>Pay using bank transfer. Sending money internationally is now easier than ever.</p><b class="dsp">03</b></li>
+    </ol>
+  </section>
+
+  <!-- CORRIDORS -->
+  <section id="rates">
+    <div class="cor-head">
+      <h2 class="dsp">Rates</h2>
+      <div class="side">
+        <span class="mono sq">Live reference rates · indicative</span>
+        <label for="amt2">If you send <input id="amt2" inputmode="decimal" value="10,000"> HKD</label>
+        <p style="color:var(--soft);max-width:460px">Pick any row to load that corridor into the calculator. Rates are mid-market references; your exact rate and fee are shown before you pay.</p>
+      </div>
+    </div>
+    <div class="rows" id="rows"></div>
+    <button class="more mono" id="more" aria-expanded="false"><span>Show all corridors</span><span>+</span></button>
+  </section>
+
+  <!-- TRUST -->
+  <section class="trust" id="trust">
+    <div class="head">
+      <span class="mono sq" style="color:var(--teal)">Wirease service assurance</span>
+      <h2 class="dsp up">Your money, in safe hands.</h2>
+      <p>We take the security of your transactions very seriously. Xirni Edge — a complete KYC, risk and compliance solution for anti-money-laundering detection, investigation and reporting — keeps our operations and your money safe.</p>
+    </div>
+    <div class="grid">
+      <div class="t"><span class="mono">01</span><h3>Regulated by the C&amp;ED</h3><p>By the Customs and Excise Department of Hong Kong and numerous authorities around the world.</p></div>
+      <div class="t"><span class="mono">02</span><h3>Safeguarded with leading banks</h3><p>Held with established institutions, separate from our own accounts.</p></div>
+      <div class="t"><span class="mono">03</span><h3>Audited regularly</h3><p>We make sure your money is secure and Wirease is financially stable.</p></div>
+      <div class="t"><span class="mono">04</span><h3>Two-factor authentication</h3><p>You — and only you — can get to your money.</p></div>
+      <div class="t"><span class="mono">05</span><h3>Data protection</h3><p>Transparent in how we collect, process and store your data.</p></div>
+      <div class="t"><span class="mono">06</span><h3>Dedicated anti-fraud team</h3><p>Round the clock, against even the most sophisticated fraud.</p></div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq" id="faq">
+    <aside><span class="mono sq">Questions</span><h2 class="dsp up">Good to know</h2><a class="btn line" href="mailto:support@wirease.com" style="align-self:flex-start"><span>Ask us anything</span><span class="ar">→</span></a></aside>
+    <div>
+      <details open><summary>Where can I send money?<i>+</i></summary><p>To 100+ countries from Hong Kong. Popular corridors include the Philippines, India, Indonesia, Nepal, Pakistan and Bangladesh — see the live rates above.</p></details>
+      <details><summary>How much does a transfer cost?<i>+</i></summary><p>Competitive rates and the lowest charges, with no hidden fees. Your exact rate and fee are always shown before you pay.</p></details>
+      <details><summary>How do I pay for a transfer?<i>+</i></summary><p>Pay securely by bank transfer once your recipient's details and amount are set up.</p></details>
+      <details><summary>Is Wirease regulated?<i>+</i></summary><p>Yes. Wirease is regulated by the Customs and Excise Department (C&amp;ED) of Hong Kong and numerous authorities around the world, with funds safeguarded at leading banks.</p></details>
+      <details><summary>Do you work with businesses?<i>+</i></summary><p>Yes — business payments of any size, multi-currency accounts, wholesale banknotes in 50+ currencies, and a white-label IMTS platform for partners. Email business@wirease.com.</p></details>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final" id="start">
+    <div class="a"><span class="mono sq">Personal</span><h2 class="dsp up">Ready to send money?</h2><div class="acts"><a class="btn ink" href="#send"><span>Calculate a transfer</span><span class="ar">→</span></a><a class="btn line" href="tel:+85223664470"><span>+852 2366 4470</span><span class="ar">→</span></a></div></div>
+    <div class="b"><span class="mono sq" style="color:var(--teal)">Business &amp; partners</span><h2 class="dsp up">Let's move money together.</h2><div class="acts"><a class="btn teal" href="mailto:business@wirease.com"><span>business@wirease.com</span><span class="ar">→</span></a><a class="btn lineW" href="mailto:support@wirease.com"><span>support@wirease.com</span><span class="ar">→</span></a></div></div>
+  </section>
+</main>
+
+<footer>
+  <div class="f-grid">
+    <div><h4 class="mono">Wirease</h4><span>Wirease Limited Hong Kong is the holding company of Wirease subsidiaries globally.</span></div>
+    <div><h4 class="mono">Solutions</h4><a href="#solutions">Home remittances</a><a href="#solutions">Commercial transfer</a><a href="#solutions">Wholesale banknotes</a></div>
+    <div><h4 class="mono">Company</h4><a href="#">About us</a><a href="#">Contact us</a><a href="#">Privacy policy</a></div>
+    <div><h4 class="mono">Support</h4><a href="tel:+85223664470">+852 2366 4470</a><a href="tel:+85235800599">+852 3580 0599</a><a href="mailto:support@wirease.com">support@wirease.com</a></div>
+  </div>
+  <div class="f-word" aria-hidden="true"><img src="assets/wirease-wordmark.svg" alt=""></div>
+  <div class="legal mono"><span>©2026 Wirease</span><span>Regulated by the Customs and Excise Department, Hong Kong</span></div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+gsap.registerPlugin(ScrollTrigger);
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const tick=()=>$('#clock').textContent=new Intl.DateTimeFormat('en-GB',{timeZone:'Asia/Hong_Kong',hour:'2-digit',minute:'2-digit'}).format(new Date())+' HKT · Hong Kong';
+tick(); setInterval(tick,15000);
+
+/* ---------- corridors + live rates ---------- */
+// mid-market reference rates from a public API, static fallbacks if offline
+// ponytail: swap for Wirease's own pricing endpoint (with margin + fees) before launch
+const DEST=[['Philippines','PHP','ph',14.6,121.0,7.38],['India','INR','in',19.1,72.9,10.72],['Indonesia','IDR','id',-6.2,106.8,2045],['Nepal','NPR','np',27.7,85.3,17.15],
+ ['Pakistan','PKR','pk',24.9,67.0,35.6],['Bangladesh','BDT','bd',23.8,90.4,15.6],['Sri Lanka','LKR','lk',6.9,79.9,38.5],['Vietnam','VND','vn',10.8,106.7,3250],
+ ['Thailand','THB','th',13.7,100.5,4.3],['UAE','AED','ae',25.2,55.3,.472],['United Kingdom','GBP','gb',51.5,-.1,.0965],['Eurozone','EUR','eu',50.1,8.7,.1105],
+ ['United States','USD','us',40.7,-74.0,.1286],['Singapore','SGD','sg',1.35,103.8,.166],['Australia','AUD','au',-33.9,151.2,.193],['Nigeria','NGN','ng',6.5,3.4,200],
+ ['Canada','CAD','ca',43.7,-79.4,.178],['Brazil','BRL','br',-23.5,-46.6,.72],['Mexico','MXN','mx',19.4,-99.1,2.45],['Kenya','KES','ke',-1.3,36.8,16.6],['South Africa','ZAR','za',-26.2,28.0,2.35]]
+ .map(([name,ccy,iso,lat,lon,rate])=>({name,ccy,iso,lat,lon,rate}));
+const HKG=[114.2,22.3];
+const fmt=new Intl.NumberFormat('en',{maximumFractionDigits:2}), money=new Intl.NumberFormat('en',{minimumFractionDigits:2,maximumFractionDigits:2}), rf=r=>r>=100?fmt.format(r):r.toPrecision(4);
+const num=el=>parseFloat(el.value.replace(/[^\d.]/g,''))||0;
+const tidy=el=>{const raw=el.value.replace(/[^\d.]/g,''); if(raw) el.value=fmt.format(+raw)+(raw.endsWith('.')?'.':'');};
+let liveAt=null;
+const ready=fetch('https://open.er-api.com/v6/latest/HKD').then(r=>r.json()).then(d=>{if(d.result!=='success')throw 0;
+  DEST.forEach(x=>d.rates[x.ccy]&&(x.rate=d.rates[x.ccy])); liveAt=new Date(d.time_last_update_unix*1000);}).catch(()=>{});
+
+/* flags strip */
+
+/* ---------- hero calculator ---------- */
+const amt=$('#amt'), to=$('#to'), out=$('#out'); let sel=0; const shown={v:0};
+to.innerHTML=DEST.map((d,i)=>`<option value="${i}">${d.ccy} · ${d.name}</option>`).join('');
+function calc(){const d=DEST[sel];
+  $('#rate').textContent=`1 HKD = ${rf(d.rate)} ${d.ccy}`; $('#g-sel').textContent=`HKG → ${d.name}`;
+  gsap.to(shown,{v:num(amt)*d.rate,duration:.6,ease:'power3.out',overwrite:true,onUpdate:()=>out.textContent=money.format(shown.v)});}
+function pick(i){sel=i; to.value=i; calc(); focusOn(DEST[i]);}
+amt.addEventListener('input',()=>{tidy(amt);calc();});
+to.addEventListener('change',()=>pick(+to.value));
+
+/* ---------- hero: fine-line globe with live routes from Hong Kong ---------- */
+const GLOBE_SHOW=new Set(['PHP','INR','AED','GBP','USD','AUD','NGN']);
+let land=null, borders=null, rot=[-114.2+40,-18], dragging=false, routeT=0, swing=null;
+const gcv=$('#globe'), gc=gcv.getContext('2d'); let GW=0,GH=0,GD=1;
+fetch('https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/countries-110m.json').then(r=>r.json()).then(t=>{
+  land=topojson.feature(t,t.objects.land); borders=topojson.mesh(t,t.objects.countries,(a,b)=>a!==b);}).catch(()=>{});
+const gsize=()=>{const r=gcv.getBoundingClientRect(); GD=Math.min(devicePixelRatio||1,2); GW=gcv.width=r.width*GD; GH=gcv.height=r.height*GD;};
+new ResizeObserver(gsize).observe(gcv); gsize();
+const proj=()=>d3.geoOrthographic().scale(Math.min(GW,GH)*.4).translate([GW/2,GH*.55]).rotate(rot).clipAngle(90);
+// on pick, swing so the corridor's midpoint faces the viewer, then keep spinning from there
+function focusOn(d){routeT=0; const want=-(HKG[0]+d.lon)/2, cur=rot[0], dl=((want-cur)%360+540)%360-180;
+  swing&&swing.kill(); swing=gsap.to(rot,{0:cur+dl,1:-18,duration:1.6,ease:'power3.inOut',onComplete:()=>swing=null});}
+let gOn=true; new IntersectionObserver(([e])=>gOn=e.isIntersecting).observe(gcv);
+const MONO=s=>`500 ${s*GD}px "IBM Plex Mono",monospace`;
+function label(x,y,txt,col,left){gc.font=MONO(11); const tw=gc.measureText(txt).width, px=left?x-tw-12*GD:x+12*GD;
+  gc.fillStyle='rgba(249,250,251,.9)'; gc.fillRect(px-4*GD,y-9*GD,tw+8*GD,16*GD); gc.fillStyle=col; gc.fillText(txt,px,y+3*GD);}
+(function globe(now){requestAnimationFrame(globe); if(!gOn||!GW) return; const t=now/1000, D=GD;
+  if(!dragging&&!swing) rot[0]+=.06;   // continuous slow rotation (~2 min per turn)
+  routeT=Math.min(1,routeT+.01);
+  const p=proj(), path=d3.geoPath(p,gc), [cx,cy]=p.translate(), R=p.scale(), front=q=>d3.geoDistance(q,[-rot[0],-rot[1]])<Math.PI/2;
+  gc.clearRect(0,0,GW,GH);
+  // sphere: soft paper shading + hairline rim
+  const sh=gc.createRadialGradient(cx-R*.35,cy-R*.4,R*.1,cx,cy,R); sh.addColorStop(0,'#ffffff'); sh.addColorStop(1,'#eceff2');
+  gc.beginPath(); path({type:'Sphere'}); gc.fillStyle=sh; gc.fill(); gc.strokeStyle='rgba(33,38,43,.22)'; gc.lineWidth=.8*D; gc.stroke();
+  gc.beginPath(); path(d3.geoGraticule().step([15,15])()); gc.strokeStyle='rgba(33,38,43,.07)'; gc.lineWidth=.6*D; gc.stroke();
+  if(land){gc.beginPath(); path(land); gc.fillStyle='#e3e7ea'; gc.fill(); gc.strokeStyle='rgba(33,38,43,.42)'; gc.lineWidth=.7*D; gc.stroke();
+    gc.beginPath(); path(borders); gc.strokeStyle='rgba(33,38,43,.12)'; gc.lineWidth=.5*D; gc.stroke();}
+  // routes: thin lifted arcs, each carrying a comet that fades at the tail
+  // a handful of well-spread corridors (Asia, Gulf, Europe, Americas, Africa, Oceania) + whichever is selected
+  const order=DEST.map((d,i)=>i).filter(i=>GLOBE_SHOW.has(DEST[i].ccy)||i===sel).sort((a,b)=>(a===sel)-(b===sel));
+  order.forEach(i=>{const d=DEST[i], isSel=i===sel, A=HKG, B=[d.lon,d.lat]; if(!front(A)&&!front(B)) return;
+    const raw=p.clipAngle(null), a=raw(A), b=raw(B), m=raw(d3.geoInterpolate(A,B)(.5)); p.clipAngle(90);
+    const vx=m[0]-cx, vy=m[1]-cy, L=Math.hypot(vx,vy), nx=L>R*.05?vx/L:0, ny=L>R*.05?vy/L:-1;
+    const chord=Math.hypot(b[0]-a[0],b[1]-a[1]), peak=Math.min(chord*.32+5*D,R*.26), c=[(a[0]+b[0])/2+nx*peak*2,(a[1]+b[1])/2+ny*peak*2];
+    const bez=u=>[(1-u)**2*a[0]+2*(1-u)*u*c[0]+u*u*b[0],(1-u)**2*a[1]+2*(1-u)*u*c[1]+u*u*b[1]];
+    const col=isSel?'13,97,166':'20,189,183', grow=isSel?routeT:1;
+    gc.beginPath(); for(let k=0;k<=40*grow;k++){const q=bez(k/40); k?gc.lineTo(...q):gc.moveTo(...q);}
+    gc.strokeStyle=`rgba(${col},${isSel?.75:.32})`; gc.lineWidth=(isSel?1.4:.9)*D; gc.stroke();
+    const u=isSel?(t*.28)%1:(t*.12+i*.137)%1, tail=.22;
+    for(let k=0;k<14;k++){const u0=Math.max(0,u-tail*(1-k/14)), u1=Math.max(0,u-tail*(1-(k+1)/14)), q0=bez(u0), q1=bez(u1);
+      gc.beginPath(); gc.moveTo(...q0); gc.lineTo(...q1); gc.strokeStyle=`rgba(${col},${(k/14)**1.6})`; gc.lineWidth=(isSel?2.2:1.5)*D*(.4+.6*k/14); gc.stroke();}
+    const hd=bez(u); gc.fillStyle=`rgb(${col})`; gc.beginPath(); gc.arc(hd[0],hd[1],(isSel?2.4:1.6)*D,0,6.283); gc.fill();
+    if(front(B)){gc.fillStyle=`rgba(${col},${isSel?1:.7})`; gc.beginPath(); gc.arc(b[0],b[1],(isSel?2.8:1.8)*D,0,6.283); gc.fill();
+      if(isSel){gc.strokeStyle='rgba(13,97,166,.5)'; gc.lineWidth=.8*D; gc.beginPath(); gc.arc(b[0],b[1],7*D,0,6.283); gc.stroke(); label(b[0],b[1],d.name,'#0d61a6');}}});
+  const h=p(HKG); if(h&&front(HKG)){const br=.5+.5*Math.sin(t*1.6);
+    gc.strokeStyle=`rgba(13,97,166,${.25+.35*br})`; gc.lineWidth=.8*D; gc.beginPath(); gc.arc(h[0],h[1],(7+br*2)*D,0,6.283); gc.stroke();
+    gc.fillStyle='#0d61a6'; gc.beginPath(); gc.arc(h[0],h[1],3.2*D,0,6.283); gc.fill(); label(h[0],h[1],'Hong Kong','#21262b',true);}
+})();
+// drag to spin
+let last=null;
+gcv.addEventListener('pointerdown',e=>{dragging=true;swing&&swing.kill();swing=null;last=[e.clientX,e.clientY];gcv.setPointerCapture(e.pointerId);});
+gcv.addEventListener('pointermove',e=>{if(!dragging)return; rot[0]+=(e.clientX-last[0])*.35; rot[1]=Math.max(-60,Math.min(60,rot[1]-(e.clientY-last[1])*.35)); last=[e.clientX,e.clientY];});
+['pointerup','pointercancel','lostpointercapture'].forEach(ev=>gcv.addEventListener(ev,()=>dragging=false));
+
+/* ---------- statement: isometric Hong Kong district, generated as line art ---------- */
+(function(){
+  const host=$('#skyline'), NS='http://www.w3.org/2000/svg';
+  const mk=(tag,a,p)=>{const e=document.createElementNS(NS,tag); for(const k in a) e.setAttribute(k,a[k]); p&&p.appendChild(e); return e;};
+  const svg=mk('svg',{'aria-hidden':'true',preserveAspectRatio:'xMidYMid meet'},host);
+  const U=22, C=Math.cos(Math.PI/6);
+  const P=(x,y,z=0)=>[(x-y)*C*U,(x+y)*.5*U-z*U];                      // iso projection
+  const pts=a=>a.map(p=>P(...p).map(v=>v.toFixed(1)).join(',')).join(' ');
+  let seed=7; const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;  // deterministic layout
+  const L={ground:mk('g',{},svg),cars:mk('g',{},svg),blds:mk('g',{},svg),fx:mk('g',{},svg)};
+  const wins=[];
+  // ---- ground: harbour, pavements, road markings
+  mk('polygon',{points:pts([[-1,11.6],[13,11.6],[13,15],[-1,15]]),class:'water'},L.ground);
+  for(let i=0;i<26;i++){const x=rnd()*13-.5, y=12+rnd()*2.6, [a,b]=[P(x,y),P(x+.5,y)]; mk('line',{x1:a[0],y1:a[1],x2:b[0],y2:b[1],class:'wave'},L.ground);}
+  const BL=[0,4,8];
+  BL.forEach(bx=>BL.forEach(by=>mk('polygon',{points:pts([[bx-.15,by-.15],[bx+3.15,by-.15],[bx+3.15,by+3.15],[bx-.15,by+3.15]]),class:'walk'},L.ground)));
+  mk('polygon',{points:pts([[-.4,11.1],[11.4,11.1],[11.4,11.6],[-.4,11.6]]),class:'walk'},L.ground);    // harbour front promenade
+  [[3.5,-.5,3.5,11.1],[7.5,-.5,7.5,11.1],[-.5,3.5,11.4,3.5],[-.5,7.5,11.4,7.5]].forEach(([x1,y1,x2,y2])=>{const a=P(x1,y1),b=P(x2,y2); mk('line',{x1:a[0],y1:a[1],x2:b[0],y2:b[1],class:'dash'},L.ground);});
+  // ---- buildings: iso boxes with window grids, painter-sorted
+  const lots=[];
+  function box(x,y,w,d,h,g,opt={}){
+    mk('polygon',{points:pts([[x,y+d,0],[x+w,y+d,0],[x+w,y+d,h],[x,y+d,h]]),class:'ln'},g);       // front-left face
+    mk('polygon',{points:pts([[x+w,y,0],[x+w,y+d,0],[x+w,y+d,h],[x+w,y,h]]),class:'ln'},g);       // front-right face
+    mk('polygon',{points:pts([[x,y,h],[x+w,y,h],[x+w,y+d,h],[x,y+d,h]]),class:'ln top'},g);       // roof
+    if(opt.plain) return;
+    const fl=opt.floor||.55, cw=opt.col||.42;
+    for(let z=.3;z<h-.25;z+=fl){
+      for(let u=.18;u<w-.22;u+=cw){const p=mk('polygon',{points:pts([[x+u,y+d,z],[x+u+.22,y+d,z],[x+u+.22,y+d,z+.3],[x+u,y+d,z+.3]]),class:'win'},g); wins.push(p);}
+      for(let v=.18;v<d-.22;v+=cw){const p=mk('polygon',{points:pts([[x+w,y+v,z],[x+w,y+v+.22,z],[x+w,y+v+.22,z+.3],[x+w,y+v,z+.3]]),class:'win'},g); wins.push(p);}}
+    if(opt.cap) box(x+w*.3,y+d*.3,w*.25,d*.25,.35,g,{plain:true});                                // rooftop plant
+  }
+  // landmark: IFC-style tower — tall shaft, stepped crown, spire (block 4,0)
+  lots.push({x:5,y:.9,k:6.8,f:g=>{box(5,.9,1.6,1.6,7.4,g,{floor:.6});
+    // stepped crown drawn as successive narrower slabs sitting on the shaft
+    [[.15,.6],[.32,.5],[.5,.4]].reduce((z,[s,h])=>{const gg=mk('g',{transform:`translate(0 ${-z*U})`},g); box(5+s,.9+s,1.6-2*s,1.6-2*s,h,gg,{plain:true}); return z+h;},7.4);
+    const a=P(5.8,1.7,9),b=P(5.8,1.7,10.2); mk('line',{x1:a[0],y1:a[1],x2:b[0],y2:b[1],stroke:'#8fa0bf','stroke-width':1.2},g);}});
+  // landmark: Bank of China-style tower with X-bracing (block 0,4)
+  lots.push({x:.9,y:4.9,k:6.9,f:g=>{box(.9,4.9,1.5,1.5,6.2,g,{plain:true});
+    for(let z=0;z<6;z+=1.5){const f1=[P(.9,6.4,z),P(2.4,6.4,z+1.5),P(.9,6.4,z+1.5),P(2.4,6.4,z)], f2=[P(2.4,4.9,z),P(2.4,6.4,z+1.5),P(2.4,4.9,z+1.5),P(2.4,6.4,z)];
+      [f1,f2].forEach(f=>{mk('line',{x1:f[0][0],y1:f[0][1],x2:f[1][0],y2:f[1][1],class:'win'},g); mk('line',{x1:f[2][0],y1:f[2][1],x2:f[3][0],y2:f[3][1],class:'win'},g);
+        const m1=f===f1?P(.9,6.4,z+1.5):P(2.4,4.9,z+1.5), m2=f===f1?P(2.4,6.4,z+1.5):P(2.4,6.4,z+1.5); mk('line',{x1:m1[0],y1:m1[1],x2:m2[0],y2:m2[1],class:'win'},g);});}
+    mk('polygon',{points:pts([[.9,4.9,6.2],[2.4,4.9,6.2],[2.4,6.4,6.2],[.9,6.4,6.2]]),class:'ln top'},g);
+    mk('polygon',{points:pts([[2.4,4.9,6.2],[2.4,6.4,6.2],[1.65,5.65,7.6]]),class:'ln'},g); mk('polygon',{points:pts([[.9,6.4,6.2],[2.4,6.4,6.2],[1.65,5.65,7.6]]),class:'ln'},g);
+    const a=P(1.65,5.65,7.6),b=P(1.65,5.65,8.6); mk('line',{x1:a[0],y1:a[1],x2:b[0],y2:b[1],stroke:'#8fa0bf','stroke-width':1.2},g);}});
+  // ordinary blocks: 2x2 lots of mid/low-rise; one block is a park
+  BL.forEach(bx=>BL.forEach(by=>{ if((bx===4&&by===0)||(bx===0&&by===4)) return; if(bx===8&&by===4) return;
+    [[0,0],[1.6,0],[0,1.6],[1.6,1.6]].forEach(([ox,oy])=>{const h=by===8?1+rnd()*1.6:1.4+rnd()*3.2, x=bx+ox+.05, y=by+oy+.05;
+      lots.push({x,y,k:x+y+1.4,f:g=>box(x,y,1.35,1.35,h,g,{cap:rnd()>.4})});});}));
+  // painter's algorithm: far (small x+y) first
+  lots.sort((a,b)=>a.k-b.k).forEach(l=>{const g=mk('g',{},L.blds); l.f(g);});
+  // trees: park block (8,4) + along the promenade
+  const tree=(x,y)=>{const a=P(x,y),b=P(x,y,.55); const g=mk('g',{},L.blds); mk('line',{x1:a[0],y1:a[1],x2:b[0],y2:b[1],stroke:'#8fa0bf','stroke-width':.9},g); mk('circle',{cx:b[0],cy:b[1]-6,r:6.5,class:'tree'},g);};
+  for(let i=0;i<3;i++) for(let j=0;j<3;j++) tree(8.5+i*1.05,4.5+j*1.05);
+  [1,2.6,5,6.4,9,10.4].forEach(x=>tree(x,10.95));
+  // ---- moving things
+  const carBox=(w,d)=>{const g=mk('g',{},L.cars); mk('polygon',{points:pts([[0,d,0],[w,d,0],[w,d,.28],[0,d,.28]]),class:'ln'},g); mk('polygon',{points:pts([[w,0,0],[w,d,0],[w,d,.28],[w,0,.28]]),class:'ln'},g);
+    mk('polygon',{points:pts([[0,0,.28],[w,0,.28],[w,d,.28],[0,d,.28]]),class:'ln top'},g); return g;};
+  const CARS=[['x',3.75,0],['x',7.25,.4],['y',3.25,.2],['y',7.75,.65],['x',3.25,.55],['y',3.75,.85]].map(([ax,lane,o],i)=>({ax,lane,o,sp:.035+i%3*.012,g:ax==='x'?carBox(.32,.62):carBox(.62,.32)}));
+  // (x-cars run along a road parallel to the y axis and vice versa)
+  const ferry=mk('g',{},L.fx); box(0,0,1.4,.6,.35,ferry,{plain:true}); box(.35,.15,.6,.3,.3,mk('g',{transform:`translate(0 ${-.35*U})`},ferry),{plain:true});
+  const clouds=[[1,1,9],[7,-1,8.5],[9.5,7,7]].map(([x,y,z],i)=>{const [cx,cy]=P(x,y,z); const g=mk('g',{transform:`translate(${cx} ${cy})`},L.fx);
+    mk('path',{d:'M0 22a12 12 0 0 1 10-14a20 20 0 0 1 36-6a14 14 0 0 1 24 8a11 11 0 0 1 2 22H6a8 8 0 0 1-6-10z',class:'cloud',transform:`scale(${1.1-i*.15})`},g); return {g,cx,cy,i};});
+  // ---- the Wirease story: route + pins + cards
+  const route=[[1.6,10.4],[1.6,7.5],[3.5,7.5],[3.5,3.5],[5.8,3.5],[5.8,2.5]], route2=[[5.8,3.5],[7.5,3.5],[7.5,11.35],[12.6,11.35],[13.4,12.6]];
+  const toD=r=>'M'+r.map(([x,y])=>P(x,y).join(' ')).join(' L');
+  const r1=mk('path',{d:toD(route),class:'route'},L.ground), r2=mk('path',{d:toD(route2),class:'route'},L.ground); // street level: buildings in front occlude it
+  const pin=(x,y,z,col)=>{const [px,py]=P(x,y,z); const g=mk('g',{class:'pin',transform:`translate(${px} ${py})`},L.fx);
+    mk('line',{x1:0,y1:0,x2:0,y2:-14,stroke:col,'stroke-width':1.5},g); mk('circle',{cx:0,cy:-20,r:8,fill:col},g);
+    mk('path',{d:'M-3.5 -20 l2.5 2.5 l4.5 -5',fill:'none',stroke:'#fff','stroke-width':1.8,'stroke-linecap':'round','stroke-linejoin':'round'},g); return g;};
+  // cards are plain SVG (rect + text) so they scale exactly with the drawing and never clip
+  const defs=mk('defs',{},svg); defs.innerHTML='<filter id="cardsh" x="-20%" y="-30%" width="140%" height="170%"><feDropShadow dx="0" dy="6" stdDeviation="7" flood-color="#21262b" flood-opacity=".14"/></filter>';
+  const CW=176, CH=68;
+  // outer group holds the position; the inner group is what animates (so GSAP's y never overwrites the placement)
+  const card=(x,y,z,dx,dy)=>{const [px,py]=P(x,y,z); const g=mk('g',{class:'cardg'},mk('g',{transform:`translate(${px+dx} ${py+dy})`},L.fx));
+    mk('rect',{width:CW,height:CH,rx:8,fill:'#fff',stroke:'rgba(33,38,43,.08)',filter:'url(#cardsh)'},g);
+    const t=(y,cls)=>mk('text',{x:12,y,class:cls},g);
+    return {g,k:t(19,'ck'),v:t(40,'cv'),s:t(57,'cs')};};
+  const p1=pin(1.6,10.4,0,'#0d61a6'), p2=pin(5.8,1.7,10.4,'#0d61a6'), p3=pin(13.4,12.6,0,'#14bdb7');
+  const c1=card(1.6,10.4,0,-CW-14,-CH-6), c2=card(5.8,1.7,10.4,16,-CH+6), c3=card(13.4,12.6,0,-CW-14,6);
+  const set=(c,k,v,s,ok)=>{c.k.textContent=k; c.v.textContent=v; c.s.textContent=s; c.v.classList.toggle('ok',!!ok);};
+  function fill(){const d=DEST[0], rcv=fmt.format(Math.round(10000*d.rate));
+    set(c1,'01 · YOU SEND','HKD 10,000','Paid by bank transfer');
+    set(c2,'02 · WIREASE, CENTRAL','Screened ✓',`Rate locked · 1 HKD = ${rf(d.rate)} ${d.ccy}`);
+    set(c3,'03 · DELIVERED',`${d.ccy} ${rcv} ✓`,`${d.name} · no hidden fees`,true);}
+  // fit the viewBox to the drawing (+ room for cards)
+  const bb=svg.getBBox(); svg.setAttribute('viewBox',`${bb.x-20} ${bb.y-30} ${bb.width+40} ${bb.height+60}`);
+  // ---- animation
+  [r1,r2].forEach(r=>{const l=r.getTotalLength(); r.dataset.l=l; gsap.set(r,{strokeDasharray:`6 5`,'--l':l});});
+  const reveal=r=>{const l=+r.dataset.l; gsap.set(r,{clipPath:'none'}); return gsap.fromTo(r,{strokeDashoffset:l,strokeDasharray:`${l} ${l}`},{strokeDashoffset:0,duration:1.6,ease:'power1.inOut',onComplete:()=>gsap.set(r,{strokeDasharray:'6 5'})});};
+  gsap.set([p1,p2,p3],{scale:0,transformOrigin:'50% 100%'}); gsap.set([c1.g,c2.g,c3.g],{opacity:0,y:8}); gsap.set([r1,r2],{opacity:0});
+  const tl=gsap.timeline({repeat:-1,repeatDelay:1,paused:true,onRepeat:fill});
+  tl.add(fill).to(p1,{scale:1,duration:.5,ease:'back.out(2)'}).to(c1.g,{opacity:1,y:0,duration:.5},'<.1')
+    .set(r1,{opacity:1}).add(()=>reveal(r1)).to({},{duration:1.6})
+    .to(p2,{scale:1,duration:.5,ease:'back.out(2)'}).to(c2.g,{opacity:1,y:0,duration:.5},'<.1')
+    .set(r2,{opacity:1}).add(()=>reveal(r2)).to({},{duration:1.6})
+    .to(p3,{scale:1,duration:.5,ease:'back.out(2)'}).to(c3.g,{opacity:1,y:0,duration:.5},'<.1')
+    .to({},{duration:3.2}).to([p1,p2,p3,c1.g,c2.g,c3.g,r1,r2],{opacity:0,duration:.6})
+    .set([p1,p2,p3],{scale:0,opacity:1}).set([c1.g,c2.g,c3.g],{y:8});
+  let on=false;
+  ScrollTrigger.create({trigger:'.state',start:'top 80%',end:'bottom top',onToggle:s=>{on=s.isActive; s.isActive?tl.play():tl.pause();}});
+  gsap.from(L.blds.children,{y:24,opacity:0,stagger:{amount:1.2,from:'start'},duration:.8,ease:'power3.out',scrollTrigger:{trigger:'.state',start:'top 80%',once:true}});
+  gsap.ticker.add(t=>{ if(!on) return;
+    CARS.forEach(c=>{const u=((t*c.sp+c.o)%1)*12-.5, [x,y]=c.ax==='x'?[c.lane-.16,u]:[u,c.lane-.16], [px,py]=P(x,y); c.g.setAttribute('transform',`translate(${px} ${py})`);});
+    const fu=((t*.018)%1)*14-1.5, [fx,fy]=P(fu,12.9); ferry.setAttribute('transform',`translate(${fx} ${fy})`);
+    clouds.forEach(c=>c.g.setAttribute('transform',`translate(${c.cx+Math.sin(t*.08+c.i*2)*40} ${c.cy})`));});
+  setInterval(()=>{if(!on) return; const w=wins[Math.random()*wins.length|0]; w.classList.add('lit'); setTimeout(()=>w.classList.remove('lit'),2400);},260);
+})();
+
+/* ---------- wireframe globe icons on solutions ---------- */
+$$('[data-globe]').forEach((s,i)=>{let h='<circle cx="50" cy="50" r="46"/>';
+  for(let k=1;k<6;k++) h+=`<ellipse class="m" cx="50" cy="50" rx="${46*Math.abs(Math.cos(k*Math.PI/6))}" ry="46"/>`;
+  for(let k=1;k<5;k++){const y=50-46+k*18.4, rx=Math.sqrt(46*46-(y-50)**2); h+=`<ellipse cx="50" cy="${y}" rx="${rx}" ry="${rx*.18}"/>`;}
+  s.innerHTML=h; const ms=s.querySelectorAll('.m');
+  gsap.to({p:0},{p:1,duration:6+i,repeat:-1,ease:'none',onUpdate(){const p=this.targets()[0].p; ms.forEach((e,k)=>e.setAttribute('rx',46*Math.abs(Math.cos(k*Math.PI/5+p*Math.PI))));}});});
+
+/* ---------- rates list (clickable → loads the calculator) ---------- */
+const amt2=$('#amt2'), rowsEl=$('#rows');
+rowsEl.innerHTML=DEST.map((d,i)=>`<a href="#send" data-i="${i}"><img src="https://flagcdn.com/${d.iso}.svg" alt=""><span>${d.name}</span><span class="k hide">${d.ccy}</span><span class="k hide rt"></span><span class="rv"></span><span class="send hide">Send →</span></a>`).join('');
+const rowEls=$$('#rows a');
+function table(){const v=num(amt2); rowEls.forEach((a,i)=>{const d=DEST[i]; a.querySelector('.rt').textContent=`1 HKD = ${rf(d.rate)}`; a.querySelector('.rv').textContent=`${money.format(v*d.rate)} ${d.ccy}`;});}
+amt2.addEventListener('input',()=>{tidy(amt2);table();});
+rowEls.forEach(a=>a.addEventListener('click',e=>{e.preventDefault(); amt.value=amt2.value; pick(+a.dataset.i); $('#send').scrollIntoView({behavior:'smooth'});}));
+table();
+$('#more').firstElementChild.textContent=`Show all ${DEST.length} corridors`;
+$('#more').addEventListener('click',e=>{const open=rowsEl.classList.toggle('all'); const b=e.currentTarget;
+  b.setAttribute('aria-expanded',open); b.firstElementChild.textContent=open?'Show fewer':`Show all ${DEST.length} corridors`; b.lastElementChild.textContent=open?'−':'+'; ScrollTrigger.refresh();});
+ready.then(()=>{calc(); table(); $('#stamp').textContent=liveAt?`Updated ${liveAt.toLocaleString('en-GB',{timeZone:'Asia/Hong_Kong',day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})} HKT · indicative`:'Indicative rates';});
+pick(0);
+
+/* ---------- motion ---------- */
+gsap.from('.h-sub h1',{y:30,opacity:0,duration:1.2,ease:'expo.out',delay:.1});
+gsap.from(['.h-word .kick','.h-sub>:not(h1)','.calc'],{y:24,opacity:0,stagger:.08,duration:1,ease:'expo.out',delay:.3});
+gsap.from('.state h2 i',{yPercent:105,stagger:.1,duration:1.3,ease:'expo.out',scrollTrigger:{trigger:'.state',start:'top 70%'}});
+$$('.words p').forEach(p=>{p.innerHTML=p.textContent.split(' ').map(w=>`<span class="w">${w}</span>`).join(' ');});
+gsap.to('.words .w',{opacity:1,stagger:.03,ease:'none',scrollTrigger:{trigger:'.words',start:'top 75%',end:'bottom 60%',scrub:true}});
+// rolling odometers
+const digits='0123456789'.split('').map(d=>`<span>${d}</span>`).join('');
+$$('.stat b').forEach(b=>{b.setAttribute('aria-label',b.dataset.v);
+  b.innerHTML=[...b.dataset.v].map(ch=>/\d/.test(ch)?`<span class="col" data-d="${ch}">${digits}${digits}</span>`:`<span>${ch}</span>`).join('');
+  const cols=b.querySelectorAll('.col');
+  gsap.to(cols,{yPercent:i=>-(10+ +cols[i].dataset.d)*5,duration:2.2,stagger:.12,ease:'expo.inOut',scrollTrigger:{trigger:b,start:'top 90%'}});});
+gsap.from('.stat',{scaleY:0,transformOrigin:'bottom',stagger:.12,duration:1.1,ease:'expo.out',scrollTrigger:{trigger:'.stats',start:'top 80%'}});
+gsap.utils.toArray('.item,.steps li,.trust .t,.rows a,.faq details').forEach(el=>gsap.from(el,{y:30,opacity:0,duration:.8,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 92%'}}));
+document.fonts.ready.then(()=>ScrollTrigger.refresh());
+$$('a[href^="#"]').forEach(a=>{if(a.closest('#rows'))return; a.addEventListener('click',e=>{const id=a.getAttribute('href'); if(id.length>1&&$(id)){e.preventDefault(); $(id).scrollIntoView({behavior:'smooth'});}});});
+</script>
+</body>
+</html>
